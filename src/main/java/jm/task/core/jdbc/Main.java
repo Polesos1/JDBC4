@@ -2,25 +2,22 @@ package jm.task.core.jdbc;
 
 import jm.task.core.jdbc.service.UserService;
 import jm.task.core.jdbc.service.UserServiceImpl;
+import jm.task.core.jdbc.util.Util;
 
-/**
- *  Создание таблицы User(ов)
- *  Добавление 4 User(ов) в таблицу с данными на свой выбор. После каждого добавления должен быть вывод в
- *  консоль ( User с именем – name добавлен в базу данных )
- *  Получение всех User из базы и вывод в консоль ( должен быть переопределен toString в классе User)
- *  Очистка таблицы User(ов)
- *  Удаление таблицы
- */
+import java.sql.SQLException;
+
 public class Main {
-    private final static UserService userService = new UserServiceImpl();
+    public final static UserService userService = new UserServiceImpl();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
+
+
         userService.createUsersTable();
 
-        userService.saveUser("Джо", "Байден", (byte) 78);
-        userService.saveUser("Трамп", "Дональд", (byte) 74);
-        userService.saveUser("Барак", "Обама", (byte) 59);
-        userService.saveUser("Джордж", "Буш", (byte) 74);
+        userService.saveUser("Антон", "Картон", (byte) 33);
+        userService.saveUser("Богдан", "Фонтан", (byte) 29);
+        userService.saveUser("Кирилл", "Курилл", (byte) 17);
+        userService.saveUser("Наташа", "Три_Рубля_И_Наша", (byte) 22);
 
         userService.removeUserById(2);
 
@@ -29,5 +26,7 @@ public class Main {
         userService.cleanUsersTable();
 
         userService.dropUsersTable();
+
+        Util.closeConnection();
     }
 }

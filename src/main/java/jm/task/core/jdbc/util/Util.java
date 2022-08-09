@@ -12,9 +12,9 @@ import java.util.Properties;
 
 public class Util {
     private static Connection conn = null;
-    private static Util instance = null;
 
-    private Util() {
+
+    public static Connection getConnection() {
         try {
             if (null == conn || conn.isClosed()) {
                 Properties props = getProps();
@@ -24,16 +24,6 @@ public class Util {
         } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static Util getInstance() {
-        if (null == instance) {
-            instance = new Util();
-        }
-        return instance;
-    }
-
-    public Connection getConnection() {
         return conn;
     }
 
@@ -45,5 +35,9 @@ public class Util {
         } catch (IOException | URISyntaxException e) {
             throw new IOException("Database config file not found", e);
         }
+    }
+
+    public static void closeConnection() throws SQLException {
+        conn.close();
     }
 }
